@@ -37,6 +37,12 @@ The canvas is 1000 × 1000 px. In each frame, ~10,000-30,000 points are plotted 
 4. **Live Algorithm IV**: Spiral patterns with dynamic scaling
 5. **Live Algorithm V**: Complex wave interference patterns
 6. **Live Algorithm VI**: Organic, flowing patterns with tangent-based transformations
+7. **Live Algorithm VII**: Dynamic circular patterns with amplitude modulation
+8. **Live Algorithm VIII**: Elliptical transformations with smooth transitions
+9. **Live Algorithm IX**: 3D-like rotation effects with perspective
+10. **Live Algorithm X**: Complex wave interactions with amplitude control
+11. **Live Algorithm XI**: Hypnotic circular patterns with radial symmetry
+12. **Live Algorithm XII**: Advanced parametric patterns with dynamic coloring
 
 ## Project Structure
 

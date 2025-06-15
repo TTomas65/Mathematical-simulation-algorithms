@@ -78,6 +78,42 @@
       plot:(x,y)=>{const o=Math.hypot(k=x/4-12.5,e=y/9)/9,q=99+3*(Math.tan(y/2)/2+Math.cos(y))/k+k*(3+Math.cos(y)/3+Math.sin(e+o*4-t*2)),c=o/4+e/4-t/8;return[q*Math.cos(c)*Math.cos(c/2-e/3+t/8)+200,q*Math.sin(c)+200];},
       src:`a=(x,y,o=mag(k=x/4-12.5,e=y/9)/9)=>point((q=99+3*(tan(y/2)/2+cos(y))/k+k*(3+cos(y)/3+sin(e+o*4-t*2)))*cos(c=o/4+e/4-t/8)*cos(c/2-e/3+t/8)+200,q*sin(c)+200)\nt=0,draw=$=>{t||createCanvas(w=400,w);background(6).stroke(w,46);for(t+=PI/90,i=3e4;i--;)a(i%100,i/350)}`,
       points:30000,angleStep:Math.PI/90,bg:6,alpha:46
+    },
+    {
+      name:"live algorithm VII.",
+      plot:(x,y)=>{const k=x/8-12.5,e=Math.cos(k)+Math.sin(y/24)+Math.cos(k/2),d=Math.abs(e),q=x/4+90+d*k*(1+Math.cos(d*4-t*2+y/72)),c=y*e/594-t/8+d/6;return[q*Math.cos(c)+200,(q/2+99*Math.cos(c/2))*Math.sin(c)+e*6+200];},
+      src:`a=(x,y,d=abs(e=cos(k=x/8-12.5)+sin(y/24)+cos(k/2)))=>point((q=x/4+90+d*k*(1+cos(d*4-t*2+y/72)))*cos(c=y*e/594-t/8+d/6)+200,(q/2+99*cos(c/2))*sin(c)+e*6+200)\nt=0,draw=$=>{t||createCanvas(w=400,w);background(6).stroke(w,36);for(t+=PI/60,i=4e4;i--;)a(i%200,i/200)}`,
+      points:40000,angleStep:Math.PI/60,bg:6,alpha:36
+    },
+    {
+      name:"live algorithm VIII.",
+      plot:(x,y)=>{const k=x/8-12.5,e=Math.cos(k)+Math.sin(y/3)+Math.cos(k/2),d=Math.abs(e),q=x/4+90+d*k*(.5+Math.cos(d*4-t*2+y/12)),c=y*e/198-t/8+d/5;return[q*.7*Math.cos(c)+200,(q+70)*.7*Math.sin(c)+200];},
+      src:`a=(x,y,k=x/8-12.5,d=abs(e=cos(k)+sin(y/3)+cos(k/2)))=>point((q=x/4+90+d*k*(.5+cos(d*4-t*2+y/12)))*.7*(cos(c=y*e/198-t/8+d/5))+200,(q+70)*.7*sin(c)+200)\nt=0,draw=$=>{t||createCanvas(w=400,w);background(0,96).stroke(w,26);for(t+=PI/90,i=4e4;i--;)a(i%200,i/500)}`,
+      points:40000,angleStep:Math.PI/90,bg:0,alpha:26
+    },
+    {
+      name:"live algorithm IX.",
+      plot:(x,y)=>{const k=x/8-12.5,e=y/8-12,o=3-Math.hypot(k,e)/3,d=-4*(Math.sin(k/2)*Math.cos(e));return[(x+e*Math.cos(t)+d*k*Math.sin(d+t))*.7+k*o+130,(y-d*19+d*e*Math.cos(d+t))*.7+130];},
+      src:`a=(x,y,o=3-mag(k=x/8-12.5,e=y/8-12)/3,d=-4*(sin(k/2)*cos(e)))=>point((x+e*cos(t)+d*k*sin(d+t))*.7+k*o+130,(y-d*19+d*e*cos(d+t))*.7+130)\nt=0,draw=$=>{t||createCanvas(w=400,w);background(6,96).stroke(w,46);for(t+=PI/90,i=4e4;i--;)a(i%200,i/200)}`,
+      points:40000,angleStep:Math.PI/90,bg:6,alpha:46
+    },
+    {
+      name:"live algorithm X.",
+      plot:(x,y)=>{const k=x/8-12,e=y/8-12,o=2-Math.hypot(k,e)/3,d=-5*Math.abs(Math.sin(k/2)*Math.cos(e*.8));return[(x-d*k*4+d*k*Math.sin(d+t))*.7+k*o*2+130,(y-d*y/5+d*e*Math.cos(d+t+o)*Math.sin(t+d))*.7+e*o+70];},
+      src:`a=(x,y,k=x/8-12,o=2-mag(k,e=y/8-12)/3,d=-5*abs(sin(k/2)*cos(e*.8)))=>point((x-d*k*4+d*k*sin(d+t))*.7+k*o*2+130,(y-d*y/5+d*e*cos(d+t+o)*sin(t+d))*.7+e*o+70)\nt=0,draw=$=>{t||createCanvas(w=400,w);background(6,96).stroke(w,46);for(t+=PI/90,i=4e4;i--;)a(i%200,i/200)}`,
+      points:40000,angleStep:Math.PI/90,bg:6,alpha:46
+    },
+    {
+      name:"live algorithm XI.",
+      plot:(x,y)=>{const k=x/8-12.5,e=y/8-12.5,o=Math.hypot(k,e)/12*Math.cos(Math.sin(k/2)*Math.cos(e/2)),d=5*Math.cos(o);return[(x+d*k*(Math.sin(d*2+t)+Math.sin(y*o*o)/9))/1.5+133,(y/3-d*40+19*Math.cos(d+t))*1.5+300];},
+      src:`a=(x,y,d=5*cos(o=mag(k=x/8-12.5,e=y/8-12.5)/12*cos(sin(k/2)*cos(e/2))))=>point((x+d*k*(sin(d*2+t)+sin(y*o*o)/9))/1.5+133,(y/3-d*40+19*cos(d+t))*1.5+300)\nt=0,draw=$=>{t||createCanvas(w=400,w);background(6,96).stroke(w,46);for(t+=PI/90,i=4e4;i--;)a(i%200,i/200)}`,
+      points:40000,angleStep:Math.PI/90,bg:6,alpha:46
+    },
+    {
+      name:"live algorithm XII.",
+      plot:(x,y)=>{const k=x/8-12.5,e=y/8-12.5,o=Math.pow(Math.hypot(k,e),2)/169,d=0.5+5*Math.cos(o);return[x+d*k*Math.sin(d*2+o+t)+e*Math.cos(e+t)+100,o*135-y/4-d*6*Math.cos(d*3+o*9+t)+125];},
+      src:`a=(x,y,d=.5+5*cos(o=mag(k=x/8-12.5,e=y/8-12.5)**2/169))=>stroke((d*sin(k)*sin(t*4+e))**2*w,36).point(x+d*k*sin(d*2+o+t)+e*cos(e+t)+100,o*135-y/4-d*6*cos(d*3+o*9+t)+125)\nt=0,draw=$=>{t||createCanvas(w=400,w);background(6);for(t+=PI/120,i=4e4;i--;)a(i%200,i/200)}`,
+      points:40000,angleStep:Math.PI/120,bg:6,alpha:255
     }
   ];
 
@@ -122,6 +158,7 @@
         case 3:x=i%200;y=i/55;break;
         case 4:x=i%200;y=i/43;break;
         case 5:x=i%100;y=i/350;break;
+        case 6:case 7:case 8:case 9:case 10:case 11:x=i%200;y=i/200;break;
       }
       const [px,py]=algo.plot(x,y);point(cx+(px-cx)*zoom+offsetX,cy+(py-cy)*zoom+offsetY);
     }
