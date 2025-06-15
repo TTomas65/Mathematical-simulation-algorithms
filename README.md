@@ -29,6 +29,15 @@ A panel above the canvas shows the original code of the selected algorithm (scro
 ### Canvas
 The canvas is 1000 × 1000 px. In each frame, ~10,000-30,000 points are plotted taking into account the current parameters (time step t, magnification, offset, color), so the patterns are constantly "live".
 
+## Available Algorithms
+
+1. **Live Algorithm I**: Complex trigonometric patterns with dynamic motion
+2. **Live Algorithm II**: Interactive wave-like patterns with smooth animations
+3. **Live Algorithm III**: Circular patterns with harmonic motion
+4. **Live Algorithm IV**: Spiral patterns with dynamic scaling
+5. **Live Algorithm V**: Complex wave interference patterns
+6. **Live Algorithm VI**: Organic, flowing patterns with tangent-based transformations
+
 ## Project Structure
 
 - **HTML + CSS**: Clean, dark theme interface with logo and fixed left-hand control panel.

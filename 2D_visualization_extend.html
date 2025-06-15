@@ -66,6 +66,18 @@
       plot:(x,y)=>{const k=9*Math.cos(x/8),e=y/8-12.5,d=Math.pow(Math.hypot(k,e),2)/99+Math.sin(t)/6+.5,q=99-e*Math.sin(Math.atan2(k,e)*7)/d+k*(3+2*Math.cos(d*d-t)),c=d/2+e/69-t/16;return[q*Math.sin(c)+200,(q+19*d)*Math.cos(c)+200]},
       src:`a=(x,y,d=mag(k=9*cos(x/8),e=y/8-12.5)**2/99+sin(t)/6+.5)=>point((q=99-e*sin(atan2(k,e)*7)/d+k*(3+cos(d*d-t)*2))*sin(c=d/2+e/69-t/16)+200,(q+19*d)*cos(c)+200)\nt=0,draw=$=>{t||createCanvas(w=400,w);background(9).stroke(w,66);for(t+=PI/45,i=1e4;i--;)a(i%200,i/55)}`,
       points:10000,angleStep:Math.PI/45,bg:9,alpha:66
+    },
+    {
+      name:"live algorithm V.",
+      plot:(x,y)=>{const d=Math.hypot(k=5*Math.cos(x/14)*Math.cos(y/30),e=y/8-13)**2/59+4,q=60-3*Math.sin(Math.atan2(k,e)*e)+k*(3+4/d*Math.sin(d*d-t*2)),c=d/2+e/99-t/18;return[q*Math.sin(c)+200,(q+d*9)*Math.cos(c)+200];},
+      src:`a=(x,y,d=mag(k=5*cos(x/14)*cos(y/30),e=y/8-13)**2/59+4)=>point((q=60-3*sin(atan2(k,e)*e)+k*(3+4/d*sin(d*d-t*2)))*sin(c=d/2+e/99-t/18)+200,(q+d*9)*cos(c)+200)\nt=0,draw=$=>{t||createCanvas(w=400,w);background(9).stroke(w,66);for(t+=PI/20,i=1e4;i--;)a(i%200,i/43)}`,
+      points:10000,angleStep:Math.PI/20,bg:9,alpha:66
+    },
+    {
+      name:"live algorithm VI.",
+      plot:(x,y)=>{const o=Math.hypot(k=x/4-12.5,e=y/9)/9,q=99+3*(Math.tan(y/2)/2+Math.cos(y))/k+k*(3+Math.cos(y)/3+Math.sin(e+o*4-t*2)),c=o/4+e/4-t/8;return[q*Math.cos(c)*Math.cos(c/2-e/3+t/8)+200,q*Math.sin(c)+200];},
+      src:`a=(x,y,o=mag(k=x/4-12.5,e=y/9)/9)=>point((q=99+3*(tan(y/2)/2+cos(y))/k+k*(3+cos(y)/3+sin(e+o*4-t*2)))*cos(c=o/4+e/4-t/8)*cos(c/2-e/3+t/8)+200,q*sin(c)+200)\nt=0,draw=$=>{t||createCanvas(w=400,w);background(6).stroke(w,46);for(t+=PI/90,i=3e4;i--;)a(i%100,i/350)}`,
+      points:30000,angleStep:Math.PI/90,bg:6,alpha:46
     }
   ];
 
@@ -104,7 +116,13 @@
     const a=algo.alpha;if(hueVal===0){stroke(255,a);}else{colorMode(HSB,360,100,100,100);stroke(hueVal,100,100,a/255*100);colorMode(RGB,255);}
     const cx=width/2,cy=height/2;
     for(let i=0;i<POINTS;i++){
-      let x,y;switch(currentAlgoIndex){case 0:case 2:x=i;y=i/235;break;case 1:x=i%100;y=i/100;break;case 3:x=i%200;y=i/55;break;}
+      let x,y;switch(currentAlgoIndex){
+        case 0:case 2:x=i;y=i/235;break;
+        case 1:x=i%100;y=i/100;break;
+        case 3:x=i%200;y=i/55;break;
+        case 4:x=i%200;y=i/43;break;
+        case 5:x=i%100;y=i/350;break;
+      }
       const [px,py]=algo.plot(x,y);point(cx+(px-cx)*zoom+offsetX,cy+(py-cy)*zoom+offsetY);
     }
     t+=angleStep;
