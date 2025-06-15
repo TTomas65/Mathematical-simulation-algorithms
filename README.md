@@ -1,9 +1,16 @@
 # Mathematical Simulation Algorithms
 
-![Demo](./pictures/screen_math01.jpg)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
+![p5.js](https://img.shields.io/badge/p5.js-ED225D?style=flat&logo=p5dotjs&logoColor=white)
+![Interactive](https://img.shields.io/badge/Interactive-Visualization-FF6B6B)
+![Math](https://img.shields.io/badge/Mathematical-Algorithms-4CAF50)
+
 *Interactive visualization of mathematical algorithms*
 
 This p5.js-based interactive web application presents dynamic drawings based on mathematical formulas. The application allows users to explore various mathematical patterns through real-time manipulation of parameters.
+![Application Screenshot](pictures/screen_math01.jpg)
 
 ## Features
 
