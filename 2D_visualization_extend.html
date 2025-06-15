@@ -297,9 +297,9 @@
             default: x = i % 200; y = i / 200; break;
           }
         } else {
-          const grid = Math.floor(Math.sqrt(POINTS));
-          x = (i % grid) * 2;
-          y = Math.floor(i / grid) * 2;
+          // Minden más algoritmus a saját koordinátáit használja
+          x = i % 200;  // Alapértelmezett értékek
+          y = Math.floor(i / 200);
         }
         const [px, py] = algo.plot(x, y);
         point(cx + (px - cx) * zoom + offsetX,
