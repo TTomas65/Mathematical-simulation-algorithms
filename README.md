@@ -10,7 +10,7 @@
 *Interactive visualization of mathematical algorithms*
 
 This p5.js-based interactive web application presents dynamic drawings based on mathematical formulas. The application allows users to explore various mathematical patterns through real-time manipulation of parameters.
-![Running image](pictures/screen_math01.jpg)
+![Running image](pictures/sreen_math01.jpg)
 ## Features
 
 ### Algorithm Selector
