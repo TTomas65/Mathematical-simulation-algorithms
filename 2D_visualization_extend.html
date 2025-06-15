@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Mathematical Simulation Algorithms</title>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
+  <style>
+    :root{--bg:#111;--panel:#222;--text:#eee;--accent:#0af;--radius:12px;}
+    html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;display:flex;flex-direction:column;align-items:center}
+    header{display:flex;align-items:center;gap:.6rem;margin-top:.8rem}
+    header .logo{font-size:2.4rem;color:var(--accent);filter:drop-shadow(0 0 4px var(--accent))}
+    /* Control panel */
+    #controls{position:fixed;left:20px;top:120px;background:var(--panel);padding:1rem 1.2rem;border-radius:var(--radius);display:flex;flex-direction:column;gap:1rem;align-items:flex-start;z-index:100}
+    label{display:flex;flex-direction:column;gap:.3rem;font-size:.9rem}
+    select{appearance:none;background:#333;border:2px solid var(--accent);border-radius:var(--radius);padding:.5rem .8rem;color:var(--text);font-weight:600;cursor:pointer;width:180px;background-image:linear-gradient(45deg,transparent 50%,var(--accent) 0),linear-gradient(135deg,var(--accent) 50%,transparent 0);background-position:calc(100% - 1.3rem) calc(50% - .25rem),calc(100% - .7rem) calc(50% - .25rem);background-size:.55rem .55rem,.55rem .55rem;background-repeat:no-repeat}
+    input[type=range]{width:180px;height:6px;background:#444;cursor:pointer;border-radius:3px}
+    canvas{border:1px solid #333;border-radius:var(--radius);margin-top:1rem}
+    /* Algorithm source display */
+    #algoSource{max-width:1000px;background:#222;color:#0af;padding:.6rem;border-radius:var(--radius);white-space:pre-wrap;font-family:Menlo,monospace;font-size:.8rem;margin-top:.8removerflow:auto;line-height:1.3;max-height:calc(1.3em * 6);}
+  </style>
+</head>
+<body>
+  <header>
+    <span class="logo">∑</span>
+    <h1>Mathematical simulation algorithms</h1>
+  </header>
+
+  <!-- Algorithm text display -->
+  <pre id="algoSource"></pre>
+
+  <!-- Control panel -->
+  <div id="controls">
+    <label>Algorithm<select id="algorithmSelect"></select></label>
+    <label>Scale <span id="zoomValue">1.90×</span><input type="range" id="zoomSlider" min="0.2" max="3" step="0.01" value="1.9" /></label>
+    <label>Offset X <span id="offsetXValue">560</span><input type="range" id="offsetXSlider" min="-1200" max="1200" step="1" value="560" /></label>
+    <label>Offset Y <span id="offsetYValue">360</span><input type="range" id="offsetYSlider" min="-1200" max="1200" step="1" value="360" /></label>
+    <label>Color <span id="colorValue">white</span><input type="range" id="colorSlider" min="0" max="360" step="1" value="0" /></label>
+  </div>
+
+  <script>
+  const CANVAS_SIZE = 1000;
+  let t = 0, zoom = 1.9, offsetX = 560, offsetY = 360, hueVal = 0, currentAlgoIndex = 0;
+
+  /* ---------------- Algorithm definitions ------------------*/
+  const algorithms = [
+    {
+      name:"live algorithm I.",
+      plot:(x,y)=>{const k=(4+Math.sin(y*2-t)*3)*Math.cos(x/29),e=y/8-13,d=Math.hypot(k,e),kS=Math.abs(k)<1e-6?1e-6:k,q=3*Math.sin(k*2)+.3/kS+Math.sin(y/25)*k*(9+4*Math.sin(e*9-d*3+t*2)),c=d-t;return[q+30*Math.cos(c)+200,q*Math.sin(c)+d*39-220]},
+      src:`a=(x,y,d=mag(k=(4+sin(y*2-t)*3)*cos(x/29),e=y/8-13))=>point((q=3*sin(k*2)+.3/k+sin(y/25)*k*(9+4*sin(e*9-d*3+t*2)))+30*cos(c=d-t)+200,q*sin(c)+d*39-220)\nt=0,draw=$=>{t||createCanvas(w=400,w);background(9).stroke(w,96);for(t+=PI/240,i=1e4;i--;)a(i,i/235)}//`,
+      points:10000,angleStep:Math.PI/240,bg:9,alpha:96
+    },
+    {
+      name:"live algorithm II.",
+      plot:(x,y)=>{const k=x/4-12.5,e=y/9+5,o=Math.hypot(k,e)/9,kS=Math.abs(k)<1e-6?1e-6:k,q=(x+99+Math.tan(1/kS)+o*k*(Math.cos(e*9)/4+Math.cos(y/2))*Math.sin(o*4-t))*.7,c=o*e/30-t/8;return[ q*Math.sin(c)+9*Math.cos(y/19+t)+200, 200+q/2*Math.cos(c) ];},
+      src:`a=(x,y,o=mag(k=x/4-12.5,e=y/9+5)/9)=>point((q=x+99+tan(1/k)+o*k*(cos(e*9)/4+cos(y/2))*sin(o*4-t))*.7*sin(c=o*e/30-t/8)+9*cos(y/19+t)+200,200+q/2*cos(c))\nt=0,draw=$=>{t||createCanvas(w=400,w);background(6).stroke(w,46);for(t+=PI/90,i=2e4;i--;)a(i%100,i/100)} //`,
+      points:20000,angleStep:Math.PI/90,bg:6,alpha:46
+    },
+    {
+      name:"live algorithm III.",
+      plot:(x,y)=>{const k=4*Math.cos(x/29),e=y/7-13,d=Math.hypot(k,e),q=3*Math.sin(Math.atan2(k,e)*19)+Math.sin(y/19)*k*(9+2*Math.sin(e*9-d*3+t/4)),c=d-t/8;return[q+60*Math.cos(c)+200,q*Math.sin(c)+d*39-195]},
+      src:`a=(x,y,d=mag(k=4*cos(x/29),e=y/7-13))=>point((q=3*sin(atan2(k,e)*19)+sin(y/19)*k*(9+2*sin(e*9-d*3+t/4)))+60*cos(c=d-t/8)+200,q*sin(c)+d*39-195)\nt=0,draw=$=>{t||createCanvas(w=400,w);background(9).stroke(w,146);for(t+=PI/15,i=1e4;i--;)a(i,i/235)}/`,
+      points:10000,angleStep:Math.PI/15,bg:9,alpha:146
+    },
+    {
+      name:"live algorithm IV.",
+      plot:(x,y)=>{const k=9*Math.cos(x/8),e=y/8-12.5,d=Math.pow(Math.hypot(k,e),2)/99+Math.sin(t)/6+.5,q=99-e*Math.sin(Math.atan2(k,e)*7)/d+k*(3+2*Math.cos(d*d-t)),c=d/2+e/69-t/16;return[q*Math.sin(c)+200,(q+19*d)*Math.cos(c)+200]},
+      src:`a=(x,y,d=mag(k=9*cos(x/8),e=y/8-12.5)**2/99+sin(t)/6+.5)=>point((q=99-e*sin(atan2(k,e)*7)/d+k*(3+cos(d*d-t)*2))*sin(c=d/2+e/69-t/16)+200,(q+19*d)*cos(c)+200)\nt=0,draw=$=>{t||createCanvas(w=400,w);background(9).stroke(w,66);for(t+=PI/45,i=1e4;i--;)a(i%200,i/55)}`,
+      points:10000,angleStep:Math.PI/45,bg:9,alpha:66
+    }
+  ];
+
+  let POINTS = algorithms[0].points, angleStep = algorithms[0].angleStep;
+
+  function setup(){
+    const cnv=createCanvas(CANVAS_SIZE,CANVAS_SIZE);cnv.parent(document.body);
+    stroke(255,algorithms[0].alpha);strokeWeight(1);noFill();frameRate(30);
+
+    const algoSource=document.getElementById('algoSource');
+
+    /* UI Wiring */
+    const select=document.getElementById('algorithmSelect');
+    algorithms.forEach((a,i)=>{const o=document.createElement('option');o.textContent=a.name;o.value=i;select.appendChild(o)});
+
+    function updateAlgo(index){
+      const a=algorithms[index];POINTS=a.points;angleStep=a.angleStep;stroke(255,a.alpha);background(a.bg);t=0;algoSource.innerText=a.src;}
+
+    select.addEventListener('change',e=>{currentAlgoIndex=+e.target.value;updateAlgo(currentAlgoIndex)});
+
+    // initial display
+    updateAlgo(0);
+
+    const zoomSl=document.getElementById('zoomSlider'),zoomLbl=document.getElementById('zoomValue');
+    zoomSl.addEventListener('input',e=>{zoom=+e.target.value;zoomLbl.textContent=zoom.toFixed(2)+'×'});
+    const offX=document.getElementById('offsetXSlider'),offY=document.getElementById('offsetYSlider');
+    const offXL=document.getElementById('offsetXValue'),offYL=document.getElementById('offsetYValue');
+    offX.addEventListener('input',e=>{offsetX=+e.target.value;offXL.textContent=offsetX});
+    offY.addEventListener('input',e=>{offsetY=+e.target.value;offYL.textContent=offsetY});
+    const colSl=document.getElementById('colorSlider'),colLbl=document.getElementById('colorValue');
+    colSl.addEventListener('input',e=>{hueVal=+e.target.value;colLbl.textContent=hueVal===0?'white':`hue ${hueVal}`});
+  }
+
+  function draw(){
+    const algo=algorithms[currentAlgoIndex];background(algo.bg);
+    const a=algo.alpha;if(hueVal===0){stroke(255,a);}else{colorMode(HSB,360,100,100,100);stroke(hueVal,100,100,a/255*100);colorMode(RGB,255);}
+    const cx=width/2,cy=height/2;
+    for(let i=0;i<POINTS;i++){
+      let x,y;switch(currentAlgoIndex){case 0:case 2:x=i;y=i/235;break;case 1:x=i%100;y=i/100;break;case 3:x=i%200;y=i/55;break;}
+      const [px,py]=algo.plot(x,y);point(cx+(px-cx)*zoom+offsetX,cy+(py-cy)*zoom+offsetY);
+    }
+    t+=angleStep;
+  }
+  </script>
+</body>
+</html>
+
